@@ -1,0 +1,8 @@
+#conditions {
+    visibility: hidden;
+}
+
+#conditions h3,
+#conditions h4 {
+    display: inline;
+}

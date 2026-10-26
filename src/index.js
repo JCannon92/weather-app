@@ -1,2 +1,3 @@
 import "./styles/styles.css";
-import {} from "./scripts/api.js";
+import "./scripts/render.js"
+import "./scripts/intialise.js"

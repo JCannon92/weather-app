@@ -21,18 +21,16 @@ async function getForecastJSON(location) {
   const params = { unitGroup: "metric" };
   const forecast_data = await fetch(constructURL(base_url, params));
   const forecastJSON = await forecast_data.json();
+    console.log(forecastJSON);
   return forecastJSON;
 }
 
 async function getForecast(location) {
-    const forecastJSON = await getForecastJSON(location);
-    const {currentConditions, days, description} = forecastJSON;
-    console.log({currentConditions, days, description});
-    return {currentConditions, days, description};
-    
+  const forecastJSON = await getForecastJSON(location);
+  const { currentConditions, days, description, resolvedAddress, timezone } =
+    forecastJSON;
+//   console.log({ currentConditions, days, description, resolvedAddress, timezone });
+  return { currentConditions, days, description, resolvedAddress, timezone };
 }
 
-getForecast('glencoe, sa');
-
-
-export {};
+export { getForecast };
