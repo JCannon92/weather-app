@@ -20,9 +20,19 @@ async function getForecastJSON(location) {
   const base_url = urls.forecast + location;
   const params = { unitGroup: "metric" };
   const forecast_data = await fetch(constructURL(base_url, params));
-  const forecast = await forecast_data.json();
-  console.log(forecast);
-  return forecast_data;
+  const forecastJSON = await forecast_data.json();
+  return forecastJSON;
 }
+
+async function getForecast(location) {
+    const forecastJSON = await getForecastJSON(location);
+    const {currentConditions, days, description} = forecastJSON;
+    console.log({currentConditions, days, description});
+    return {currentConditions, days, description};
+    
+}
+
+getForecast('glencoe, sa');
+
 
 export {};
