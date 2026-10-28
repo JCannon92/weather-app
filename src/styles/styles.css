@@ -1,8 +1,36 @@
-#conditions {
+* {
+    box-sizing: border-box;
+}
+
+div#location {
     visibility: hidden;
 }
 
 #conditions h3,
 #conditions h4 {
     display: inline;
+}
+
+div.curr-conds {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 5px;
+    width: 300px;
+    align-items: center;
+
+    outline: black solid 2px;
+
+    row-gap: 3px;
+    row-rule: black solid 1px;
+    column-gap: 3px;
+    column-rule: black solid 1px;
+}
+
+div.curr-conds > * {
+    margin: 2px 2px;
+}
+
+div.curr-conds p {
+    justify-self: center;
+
 }
