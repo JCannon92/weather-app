@@ -2,8 +2,11 @@ import { getForecast } from "./api.js";
 
 async function renderLocation(location) {
   const forecast = await getForecast(location);
+  const locationElement = document.querySelector("div#location");
+  locationElement.style.visibility = 'visible';
   renderLocationTitle(forecast);
   renderLocationConditions(forecast);
+  renderForecastDays(forecast);
 }
 
 function renderLocationTitle(forecast) {
@@ -14,8 +17,6 @@ function renderLocationTitle(forecast) {
 }
 
 function renderLocationConditions(forecast) {
-  const conditions = document.querySelector("#conditions");
-  conditions.style.visibility = "visible";
   const conditionsHeading = document.querySelector("#conditions h3");
   conditionsHeading.textContent = `Conditions at ${forecast.currentConditions.datetime.slice(0, 5)}`;
   const conditionsTimezone = document.querySelector("#conditions h4");
@@ -27,27 +28,55 @@ function renderLocationConditions(forecast) {
   const conditionsWindSpeed = document.querySelector("p#wind-speed");
   conditionsWindSpeed.textContent = forecast.currentConditions.windspeed;
   const conditionsWindDirection = document.querySelector("p#wind-dir");
-  conditionsWindDirection.textContent = calculateCardinalDirection(forecast.currentConditions.winddir);
+  conditionsWindDirection.textContent = calculateCardinalDirection(
+    forecast.currentConditions.winddir,
+  );
   const conditionsUVIndex = document.querySelector("p#uv-index");
   conditionsUVIndex.textContent = forecast.currentConditions.uvindex;
 }
 
 function calculateCardinalDirection(bearing) {
-  const directions = [
-    "N",
-    "NE",
-    "E",
-    "SE",
-    "S",
-    "SW",
-    "W",
-    "NW",
-  ];
+  const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 
   const index = Math.round(bearing / 45) % 8;
 
   return directions[index];
 }
+
+function renderForecastDays(forecast) {
+  //Render the list of days
+  const dayList = document.querySelector("div#day.list");
+
+  for (let day of forecast.days) {
+    let date = new Date(day.datetime);
+
+    let dayElement = document.createElement("div");
+    dayElement.classList.add("day");
+    dayElement.id = day.datetime;
+
+    let dayNameElement = document.createElement("p");
+    let dayText = `${date.toLocaleDateString("en-GB", { weekday: "short" })}`;
+    dayNameElement.textContent = dayText;
+    dayNameElement.classList.add('day-name');
+    if (dayText === "Sat" || dayText === "Sun") {
+      dayElement.classList.add('weekend');
+    }
+    let dateElement = document.createElement("p");
+    dateElement.textContent = `${date.toLocaleDateString("en-GB")}`;
+    dateElement.classList.add('date');
+
+    dayElement.appendChild(dayNameElement);
+    dayElement.appendChild(dateElement);
+    dayList.appendChild(dayElement);
+
+  }
+
+
+  //Render day if clicked on
+  renderForecastDay(day);
+}
+
+function renderForecastDay(day) {}
 
 const searchLocationForm = document.querySelector("form.search-location");
 searchLocationForm.addEventListener("submit", (event) =>

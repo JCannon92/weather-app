@@ -34,3 +34,32 @@ div.curr-conds p {
     justify-self: center;
 
 }
+
+div#forecast-area {
+    display: flex;
+}
+
+div.list {
+    display: flex;
+    flex-direction: column;
+    width: 140px;
+    max-height: 500px;
+    margin: 20px;
+    outline: black solid 2px;
+}
+
+div.list div.day {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: aliceblue;
+    cursor: pointer;
+}
+
+div.list div.day.weekend {
+    background-color: cadetblue;
+}
+
+div.list div.day p {
+    margin: 5px 5px;
+    flex: 1;
+}
