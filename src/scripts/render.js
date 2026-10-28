@@ -1,9 +1,10 @@
 import { getForecast } from "./api.js";
 
 async function renderLocation(location) {
+  //Reset forecast if applicable
   const forecast = await getForecast(location);
   const locationElement = document.querySelector("div#location");
-  locationElement.style.visibility = 'visible';
+  locationElement.style.visibility = "visible";
   renderLocationTitle(forecast);
   renderLocationConditions(forecast);
   renderForecastDays(forecast);
@@ -44,9 +45,10 @@ function calculateCardinalDirection(bearing) {
 }
 
 function renderForecastDays(forecast) {
+  const dayList = document.querySelector("div#day-list");
+  //Clear the list of days
+  dayList.replaceChildren();
   //Render the list of days
-  const dayList = document.querySelector("div#day.list");
-
   for (let day of forecast.days) {
     let date = new Date(day.datetime);
 
@@ -57,26 +59,98 @@ function renderForecastDays(forecast) {
     let dayNameElement = document.createElement("p");
     let dayText = `${date.toLocaleDateString("en-GB", { weekday: "short" })}`;
     dayNameElement.textContent = dayText;
-    dayNameElement.classList.add('day-name');
+    dayNameElement.classList.add("day-name");
     if (dayText === "Sat" || dayText === "Sun") {
-      dayElement.classList.add('weekend');
+      dayElement.classList.add("weekend");
     }
     let dateElement = document.createElement("p");
     dateElement.textContent = `${date.toLocaleDateString("en-GB")}`;
-    dateElement.classList.add('date');
+    dateElement.classList.add("date");
 
     dayElement.appendChild(dayNameElement);
     dayElement.appendChild(dateElement);
     dayList.appendChild(dayElement);
 
+    //Render day if clicked on
+    dayElement.addEventListener("click", (event) => {
+      renderForecastDay(day);
+      renderForecastHours(day);
+    });
   }
-
-
-  //Render day if clicked on
-  renderForecastDay(day);
 }
 
-function renderForecastDay(day) {}
+function renderForecastDay(day) {
+  let date = new Date(day.datetime);
+  const dayTitleElement = document.querySelector("div#forecast-display h4");
+  dayTitleElement.textContent = `${date.toLocaleDateString("en-GB", { weekday: "long" })} | ${date.toLocaleDateString("en-GB")}`;
+  const forecastDayElements = document.querySelectorAll(
+    "div#forecast-display div#forecast-day-info p",
+  );
+  forecastDayElements.forEach(
+    (element) => (element.textContent = day[element.id]),
+  );
+  //Exception for wind direction as it needs to be replaced with the cardinal direction
+  const windDirectionElement = document.querySelector(
+    "div#forecast-display div#forecast-day-info p#winddir",
+  );
+  windDirectionElement.textContent = calculateCardinalDirection(day.winddir);
+}
+
+function renderForecastHours(day) {
+  const hourMatrixElement = document.querySelector('div#hour-list');
+  //Clear hour matrix
+  hourMatrixElement.replaceChildren();
+  hourMatrixElement.style.visibility = 'visible';
+  //Set headers
+  const hourHeaders = [
+    'Time',
+    'Temp.',
+    'Precip. %',
+    'UV Indx.',
+    'Wind Sp.',
+    'Wind Dir.',
+    'Visib.'
+  ];
+
+  hourHeaders.forEach(element => {
+    const hourHeaderElement = document.createElement('h6');
+    hourHeaderElement.textContent = element;
+    hourMatrixElement.appendChild(hourHeaderElement);
+  });
+  //Set hour matrix values
+  day.hours.forEach(renderForecastHour);
+}
+
+function renderForecastHour(hour) {
+  const hourMatrixElement = document.querySelector('div#hour-list');
+
+  const hourInformationHeadings = [
+    'datetime',
+    // 'icon',
+    'temp',
+    'precipprob',
+    'uvindex',
+    'windspeed',
+    'winddir',
+    'visibility'
+  ];
+
+  hourInformationHeadings.forEach(property => {
+    const hourElement = document.createElement('p');
+    hourElement.classList.add('hour-matrix');
+
+    //Some API properties are modified before rendering
+    if (property === 'datetime') {
+      hourElement.textContent = hour[property].slice(0,5);
+    } else if (property === 'winddir') {
+      hourElement.textContent = calculateCardinalDirection(hour[property]);
+    } else {
+      hourElement.textContent = hour[property];
+    }
+
+    hourMatrixElement.appendChild(hourElement);
+  });
+}
 
 const searchLocationForm = document.querySelector("form.search-location");
 searchLocationForm.addEventListener("submit", (event) =>

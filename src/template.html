@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOC html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <div id="conditions">
       <h3></h3>
       <h4></h4>
-      <div class="curr-conds">
+      <div id="curr-conds">
         <h4>Weather</h4>
         <p id="weather"></p>
         <h4>Temperature</h4>
@@ -35,9 +35,35 @@
     <div id="forecast">
       <h3>15 Day Forecast</h3>
       <div id="forecast-area">
-        <div id="day" class="list"></div>
-        <div id="hour" class="list"></div>
-        <div id="forecast-display"></div>
+        <div id="day-list"></div>
+        <div id="forecast-display">
+          <h4 id="forecast-day-name"></h4>
+          <div id="forecast-day-info">
+            <h5>Outlook</h5>
+            <p id="conditions"></p>
+            <h5>Temperature</h5>
+            <p id="temp"></p>
+            <h5>Temperature (Max)</h5>
+            <p id="tempmax"></p>
+            <h5>Temperature (Min)</h5>
+            <p id="tempmin"></p>
+            <h5>Precipition Chance %</h5>
+            <p id="precipprob"></p>
+            <h5>Sunrise</h5>
+            <p id="sunrise"></p>
+            <h5>Sunset</h5>
+            <p id="sunset"></p>
+            <h5>Max UV Index</h5>
+            <p id="uvindex"></p>
+            <h5>Wind Speed</h5>
+            <p id="windspeed"></p>
+            <h5>Wind Direction</h5>
+            <p id="winddir"></p>
+            <h5>Visibility</h5>
+            <p id="visibility"></p>
+          </div>
+        </div>
+        <div id="hour-list"></div>
       </div>
     </div>
   </div>

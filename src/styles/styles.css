@@ -2,6 +2,10 @@
     box-sizing: border-box;
 }
 
+body {
+    height: 100%;
+}
+
 div#location {
     visibility: hidden;
 }
@@ -11,11 +15,12 @@ div#location {
     display: inline;
 }
 
-div.curr-conds {
+
+
+div#curr-conds,
+div#forecast-display div#forecast-day-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    margin: 20px 5px;
-    width: 300px;
     align-items: center;
 
     outline: black solid 2px;
@@ -26,40 +31,107 @@ div.curr-conds {
     column-rule: black solid 1px;
 }
 
-div.curr-conds > * {
+div#curr-conds > *,
+div#forecast-display div#forecast-day-info > * {
     margin: 2px 2px;
 }
 
-div.curr-conds p {
+div#curr-conds p,
+div#forecast-display div#forecast-day-info p {
     justify-self: center;
+}
 
+div#curr-conds {
+    margin: 20px 5px;
+    width: 300px;
 }
 
 div#forecast-area {
     display: flex;
 }
 
-div.list {
+div#day-list {
     display: flex;
     flex-direction: column;
     width: 140px;
-    max-height: 500px;
-    margin: 20px;
+    height: 475px;
+    margin: 3px 10px 0 10px;
     outline: black solid 2px;
 }
 
-div.list div.day {
+div#day-list div.day {
     display: flex;
     justify-content: space-evenly;
     background-color: aliceblue;
     cursor: pointer;
+    flex: 1;
 }
 
-div.list div.day.weekend {
+div#day-list div.day.weekend {
     background-color: cadetblue;
 }
 
-div.list div.day p {
+div#day-list div.day p {
     margin: 5px 5px;
     flex: 1;
 }
+
+div#forecast-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 3px 50px;
+    width: 400px;
+    height: 475px;
+
+}
+
+div#forecast-display h4 {
+    margin: 0;
+    padding: 10px;
+}
+
+div#forecast-display div#forecast-day-info{
+    height: 425px;
+    width: 350px;
+}
+
+div#forecast-display div#forecast-day-info h5 {
+    margin: 3px 5px;
+    font-size: 14px;
+}
+
+div#hour-list {
+    visibility: hidden;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(25, 1fr);
+
+    column-gap: 0.5px;
+    column-rule: gray solid 0.5px;
+    row-gap: 0.5px;
+    row-rule: gray solid 0.5px;
+
+    height: 475px;
+    width: 400px;
+    margin: 3px 10px 0 10px;
+    outline: black solid 2px;
+    justify-content: center;
+    align-items: center;
+}
+
+div#hour-list h6 {
+    margin: 1px;
+    text-align: center;
+}
+
+div#hour-list p {
+    margin: 1px;
+    font-size: 14px;
+    flex: 1;
+    text-align: center;
+}
+
+
+
