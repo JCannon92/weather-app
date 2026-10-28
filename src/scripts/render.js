@@ -46,6 +46,11 @@ function calculateCardinalDirection(bearing) {
 
 function renderForecastDays(forecast) {
   const dayList = document.querySelector("div#day-list");
+  //Set forecast information to hidden
+  const forecastDisplayElement = document.querySelector('div#forecast-display');
+  forecastDisplayElement.style.visibility = 'hidden';
+  const hourListElement = document.querySelector('div#hour-list');
+  hourListElement.style.visibility = 'hidden';
   //Clear the list of days
   dayList.replaceChildren();
   //Render the list of days
@@ -71,6 +76,9 @@ function renderForecastDays(forecast) {
     dayElement.appendChild(dateElement);
     dayList.appendChild(dayElement);
 
+    //Render the first day
+    renderForecastDay(forecast.days[0]);
+
     //Render day if clicked on
     dayElement.addEventListener("click", (event) => {
       renderForecastDay(day);
@@ -80,6 +88,8 @@ function renderForecastDays(forecast) {
 }
 
 function renderForecastDay(day) {
+  const forecastDisplayElement = document.querySelector('div#forecast-display');
+  forecastDisplayElement.style.visibility = 'visible';
   let date = new Date(day.datetime);
   const dayTitleElement = document.querySelector("div#forecast-display h4");
   dayTitleElement.textContent = `${date.toLocaleDateString("en-GB", { weekday: "long" })} | ${date.toLocaleDateString("en-GB")}`;
