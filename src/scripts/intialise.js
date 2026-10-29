@@ -3,3 +3,4 @@ searchLocationInput.value = "Glencoe, SA";
 
 const searchLocationButton = document.querySelector("button.search-location");
 searchLocationButton.click();
+

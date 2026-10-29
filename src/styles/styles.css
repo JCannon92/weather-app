@@ -3,7 +3,7 @@
 }
 
 body {
-    height: 100%;
+    height: 100vh;
 }
 
 div#location {
@@ -23,7 +23,7 @@ div#forecast-display div#forecast-day-info {
     grid-template-columns: 1fr 1fr;
     align-items: center;
 
-    outline: black solid 2px;
+    border: black solid 2px;
 
     row-gap: 3px;
     row-rule: black solid 1px;
@@ -48,6 +48,9 @@ div#curr-conds {
 
 div#forecast-area {
     display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: space-between;
 }
 
 div#day-list {
@@ -55,21 +58,26 @@ div#day-list {
     flex-direction: column;
     width: 140px;
     height: 475px;
-    margin: 3px 10px 0 10px;
-    outline: black solid 2px;
+    margin: 0 10px;
+    border: black solid 2px;
 }
 
 div#day-list div.day {
     display: flex;
     justify-content: space-evenly;
-    background-color: aliceblue;
+    background-color: #E8E8E8;
     cursor: pointer;
     flex: 1;
 }
 
-div#day-list div.day.weekend {
-    background-color: cadetblue;
+div#day-list div.day:hover {
+    background-color: #CFCFCF;
 }
+
+div#day-list div.day.selected {
+    background-color: #B8B8B8;
+}
+
 
 div#day-list div.day p {
     margin: 5px 5px;
@@ -81,7 +89,7 @@ div#forecast-display {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    margin: 3px 50px;
+    margin: 0 25px;
     width: 400px;
     height: 475px;
 
@@ -115,8 +123,8 @@ div#hour-list {
 
     height: 475px;
     width: 400px;
-    margin: 3px 10px 0 10px;
-    outline: black solid 2px;
+    margin: 0 25px;
+    border: black solid 2px;
     justify-content: center;
     align-items: center;
 }
@@ -131,6 +139,15 @@ div#hour-list p {
     font-size: 14px;
     flex: 1;
     text-align: center;
+}
+
+div.chart-container {
+    width: 500px;
+    height: 475px;
+    padding: 25px;
+    margin: 0 25px;
+    border: black solid 2px;
+    visibility: hidden;
 }
 
 
